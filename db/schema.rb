@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110042629) do
+ActiveRecord::Schema.define(version: 20160110161701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,14 +79,19 @@ ActiveRecord::Schema.define(version: 20160110042629) do
   add_index "events", ["college_id"], name: "index_events_on_college_id", using: :btree
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
+  create_table "tagged_events", force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "event_id"
+  end
+
+  add_index "tagged_events", ["event_id"], name: "index_tagged_events_on_event_id", using: :btree
+  add_index "tagged_events", ["tag_id"], name: "index_tagged_events_on_tag_id", using: :btree
+
   create_table "tags", force: :cascade do |t|
     t.string   "title",      null: false
-    t.integer  "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "tags", ["event_id"], name: "index_tags_on_event_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -115,5 +120,6 @@ ActiveRecord::Schema.define(version: 20160110042629) do
   add_foreign_key "event_locations", "events"
   add_foreign_key "events", "colleges"
   add_foreign_key "events", "users"
-  add_foreign_key "tags", "events"
+  add_foreign_key "tagged_events", "events"
+  add_foreign_key "tagged_events", "tags"
 end

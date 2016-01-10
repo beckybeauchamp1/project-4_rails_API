@@ -1,5 +1,23 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  resources :colleges
+
+  resources :events do
+    resources :comments
+  end
+
+  resources :events do
+    resources :event_location
+  end
+
+  resources :tags, only: [:create, :new] do
+    member do
+      delete :untag
+    end
+  end
+  resources :attendances
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

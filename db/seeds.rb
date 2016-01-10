@@ -8,43 +8,48 @@
 require 'json'
 
 Event.destroy_all
+College.destroy_all
 Comment.destroy_all
 User.destroy_all
 Attendance.destroy_all
 Tag.destroy_all
 
-# json_file = File.read('db/college.json')
-#
-# colleges_array = []
-# colleges = JSON.parse(json_file)
-# take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Technical", "Therapy", "Skin",
-#   "Aveda", "Healing", "Paul Mitchell", "Hair", "Hairstyling", "Health", "Culinary", "Dental", "Aveda", "Massage",
-#   "Medical", "Make-up"]
-#
-#   colleges.each do |college|
-#     colleges_array << college
-#   end
-#
-#   colleges_array.each_with_index do |college, index|
-#     college_type = college["Name"]
-#     take_out_colleges.each do |type|
-#       if college_type.include?(type)
-#         colleges_array.delete_at(index)
-#       end
-#     end
-#     College.create!(
-#     name: college["Name"],
-#     address: college["Address"],
-#     city: college["City"],
-#     zipcode: college["Zip"],
-#     lat: college["Lat"],
-#     long: college["Long"]
-#     )
-#   end
+json_file = File.read('db/college.json')
+
+colleges_array = []
+colleges = JSON.parse(json_file)
+take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Technical", "Therapy", "Skin",
+  "Aveda", "Healing", "Paul Mitchell", "Hair", "Hairstyling", "Health", "Culinary", "Dental", "Aveda", "Massage",
+  "Medical", "Make-up"]
+
+  colleges.each do |college|
+    colleges_array << college
+  end
+
+  colleges = []
+
+  colleges_array.each_with_index do |college, index|
+    college_type = college["Name"]
+    take_out_colleges.each do |type|
+      if college_type.include?(type)
+        colleges_array.delete_at(index)
+      end
+    end
+    create_college = College.create!(
+    name: college["Name"],
+    address: college["Address"],
+    city: college["City"],
+    zipcode: college["Zip"],
+    lat: college["Lat"],
+    long: college["Long"]
+    )
+    colleges << create_college
+  end
 
   events_array = []
+  tags_array = []
 
-  20.times do |event|
+  100.times do |event|
     event = Event.create!(
     title: Faker::Name.title,
     image: Faker::Placeholdit.image,
@@ -58,15 +63,59 @@ Tag.destroy_all
     events_array << event
   end
 
-  # colleges_array.each do |college|
-  #   events_array.each do |event|
-  #     event.college = college
-  #     event.save!
-  #   end
-  # end
-
-  5.times do |tag|
-    tag = Tag.create!(
-    title: Faker::Name.title
-    )
+  events_array[0..10].each do |event|
+    event.college = colleges[0]
+    event.save
   end
+
+  events_array[10..20].each do |event|
+    event.college = colleges[1]
+    event.save
+  end
+
+  events_array[20..30].each do |event|
+    event.college = colleges[2]
+    event.save
+  end
+
+  events_array[30..40].each do |event|
+    event.college = colleges[3]
+    event.save
+  end
+
+  events_array[40..50].each do |event|
+    event.college = colleges[3]
+    event.save
+  end
+
+  events_array[50..60].each do |event|
+    event.college = colleges[4]
+    event.save
+  end
+
+  events_array[60..70].each do |event|
+    event.college = colleges[5]
+    event.save
+  end
+
+  events_array[70..80].each do |event|
+    event.college = colleges[6]
+    event.save
+  end
+
+  events_array[80..90].each do |event|
+    event.college = colleges[7]
+    event.save
+  end
+
+  events_array[90..100].each do |event|
+    event.college = colleges[8]
+    event.save
+  end
+
+  10.times do |tag|
+    tag = Tag.create({
+      title: Faker::SlackEmoji.activity
+      })
+      tags_array << tag
+    end
