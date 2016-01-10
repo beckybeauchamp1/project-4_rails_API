@@ -35,15 +35,19 @@ take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Techn
         colleges_array.delete_at(index)
       end
     end
-    create_college = College.create!(
+  end
+
+  colleges_array.each do |college|
+    college = College.create!(
     name: college["Name"],
     address: college["Address"],
     city: college["City"],
+    state: college["State"],
     zipcode: college["Zip"],
     lat: college["Lat"],
     long: college["Long"]
     )
-    colleges << create_college
+    colleges << college
   end
 
   events_array = []
