@@ -11,7 +11,6 @@ class CreateEvents < ActiveRecord::Migration
       t.decimal :cost, precision: 8, scale: 2
       t.references :user, index: true, foreign_key: true
       t.references :college, index: true, foreign_key: true
-      t.references :tag, index: true, foreign_key: true
       t.timestamps null: false
     end
   end

@@ -7,69 +7,66 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'json'
 
-College.destroy_all
 Event.destroy_all
-Event_Location.destroy_all
 Comment.destroy_all
 User.destroy_all
 Attendance.destroy_all
 Tag.destroy_all
 
-json_file = File.read('college.json')
+# json_file = File.read('db/college.json')
+#
+# colleges_array = []
+# colleges = JSON.parse(json_file)
+# take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Technical", "Therapy", "Skin",
+#   "Aveda", "Healing", "Paul Mitchell", "Hair", "Hairstyling", "Health", "Culinary", "Dental", "Aveda", "Massage",
+#   "Medical", "Make-up"]
+#
+#   colleges.each do |college|
+#     colleges_array << college
+#   end
+#
+#   colleges_array.each_with_index do |college, index|
+#     college_type = college["Name"]
+#     take_out_colleges.each do |type|
+#       if college_type.include?(type)
+#         colleges_array.delete_at(index)
+#       end
+#     end
+#     College.create!(
+#     name: college["Name"],
+#     address: college["Address"],
+#     city: college["City"],
+#     zipcode: college["Zip"],
+#     lat: college["Lat"],
+#     long: college["Long"]
+#     )
+#   end
 
-colleges_array = []
-colleges = JSON.parse(json_file)
-puts colleges.length
-puts colleges_array.length
-take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Technical", "Therapy", "Skin",
-  "Aveda", "Healing", "Paul Mitchell", "Hair", "Hairstyling", "Health", "Culinary", "Dental", "Aveda", "Massage",
-  "Medical", "Make-up"]
-
-  colleges.each do |college|
-    colleges_array << college
-  end
-
-  colleges_array.each_with_index do |college, index|
-    college_type = college["Name"]
-    take_out_colleges.each do |type|
-      if college_type.include?(type)
-        colleges_array.delete_at(index)
-      end
-      College.create!(
-      name: college["Name"],
-      address: college["Address"],
-      city: college["City"],
-      zipcode: college["Zip"]
-      lat: college["Lat"],
-      long: college["Long"]
-      )
-    end
-  end
-
-  all_users = []
   events_array = []
 
-  20.times do |user|
-    user = User.create!(
-    first_name: Faker::Name.first_name
-    last_name: Faker::Name.last_name
-    email: Faker::Internet.email(first_name + "." + last_name)
+  20.times do |event|
+    event = Event.create!(
+    title: Faker::Name.title,
+    image: Faker::Placeholdit.image,
+    content: Faker::Hipster.paragraph,
+    start_date: Faker::Date.forward(1),
+    end_date: Faker::Date.forward(1),
+    starting_time: Faker::Time.forward(1, :morning),
+    ending_time: Faker::Time.forward(1, :evening),
+    cost: Faker::Commerce.price
     )
-    all_users << user
+    events_array << event
   end
 
-  # 20.times do |event|
-  #   event = Event.create!(
-  #
-  #   )
+  # colleges_array.each do |college|
+  #   events_array.each do |event|
+  #     event.college = college
+  #     event.save!
+  #   end
   # end
 
   5.times do |tag|
     tag = Tag.create!(
     title: Faker::Name.title
     )
-    events_array.each do |event|
-      tag.event = event
-      tag.save
-    end
   end
