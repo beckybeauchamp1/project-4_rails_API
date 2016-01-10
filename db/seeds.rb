@@ -5,9 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-#!/usr/local/bin/ruby
-
 require 'json'
+
+College.destroy_all
+Event.destroy_all
+Event_Location.destroy_all
+Comment.destroy_all
+User.destroy_all
+Attendance.destroy_all
+Tag.destroy_all
 
 json_file = File.read('college.json')
 
@@ -17,7 +23,8 @@ puts colleges.length
 puts colleges_array.length
 take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Technical", "Therapy", "Skin",
   "Aveda", "Healing", "Paul Mitchell", "Hair", "Hairstyling", "Health", "Culinary", "Dental", "Aveda", "Massage",
-"Medical", "Make-up"]
+  "Medical", "Make-up"]
+
   colleges.each do |college|
     colleges_array << college
   end
@@ -28,5 +35,41 @@ take_out_colleges = ["Community", "Beauty", "Cosmetology", "Phoenix", "ITT Techn
       if college_type.include?(type)
         colleges_array.delete_at(index)
       end
+      College.create!(
+      name: college["Name"],
+      address: college["Address"],
+      city: college["City"],
+      zipcode: college["Zip"]
+      lat: college["Lat"],
+      long: college["Long"]
+      )
+    end
+  end
+
+  all_users = []
+  events_array = []
+
+  20.times do |user|
+    user = User.create!(
+    first_name: Faker::Name.first_name
+    last_name: Faker::Name.last_name
+    email: Faker::Internet.email(first_name + "." + last_name)
+    )
+    all_users << user
+  end
+
+  # 20.times do |event|
+  #   event = Event.create!(
+  #
+  #   )
+  # end
+
+  5.times do |tag|
+    tag = Tag.create!(
+    title: Faker::Name.title
+    )
+    events_array.each do |event|
+      tag.event = event
+      tag.save
     end
   end

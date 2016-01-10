@@ -67,6 +67,8 @@ GEM
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.6.0)
+    faker (1.6.1)
+      i18n (~> 0.5)
     figaro (1.1.1)
       thor (~> 0.14)
     fission (0.5.0)
@@ -288,9 +290,10 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.1.0)
   devise
+  faker (~> 1.6, >= 1.6.1)
   figaro
   fog
-  forgery
+  forgery (~> 0.6.0)
   jbuilder (~> 2.0)
   jquery-rails
   json

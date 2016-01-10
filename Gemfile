@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'devise'
-
 gem 'carrierwave'
 
-gem 'forgery'
+gem 'forgery', '~> 0.6.0'
+
+gem 'faker', '~> 1.6', '>= 1.6.1'
 
 gem 'fog'
 
