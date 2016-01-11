@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    @college = College.find(params[:event_id]);
+    @events = @college.events.order(:start_date)
     render status: 200, json: @events.to_json
   end
 
@@ -10,7 +11,8 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(event_params)
+    @college = College.find(params[:event_id]);
+    @event = @college.events.new(event_params)
     if @event.save
       render status: 200, json: @event.to_json
     end
@@ -35,5 +37,5 @@ class EventsController < ApplicationController
     params.require(:event).permit(:title, :image, :content, :start_date,
     :end_date, :starting_time, :ending_time, :cost)
   end
-  
+
 end
