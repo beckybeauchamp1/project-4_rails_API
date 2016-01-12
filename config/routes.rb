@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :colleges
+  resources :colleges do
+    resources :events
+  end
 
   resources :events do
     resources :comments
