@@ -2,22 +2,25 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :colleges do
-    resources :events
+    resources :events do
+      resources :tags
+
+    end
   end
 
   resources :events do
     resources :comments
   end
 
-  resoures :events do
-    resoures :tagged_events
-  end
-
   resources :events do
     resources :event_location
   end
 
-  resources :tags
+  resources :events do
+    resources :tags
+  end
+
+  resources :tags, :only => :index
 
   resources :attendances
 
