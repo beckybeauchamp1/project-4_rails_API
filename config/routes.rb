@@ -2,10 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :colleges do
-    resources :events do
-      resources :tags
-
-    end
+    resources :events
   end
 
   resources :events do
@@ -20,7 +17,7 @@ Rails.application.routes.draw do
     resources :tags
   end
 
-  resources :tags, :only => :index
+  resources :tags
 
   resources :attendances
 
