@@ -9,15 +9,16 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  resoures :events do
+    resoures :tagged_events
+  end
+
   resources :events do
     resources :event_location
   end
 
-  resources :tags, only: [:create, :new] do
-    member do
-      delete :untag
-    end
-  end
+  resources :tags
+
   resources :attendances
 
   # The priority is based upon order of creation: first created -> highest priority.
