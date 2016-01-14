@@ -5,9 +5,7 @@ class TagsController < ApplicationController
   end
 
   def create
-    @event = Event.find(params[:event_id]);
-    @tagged_events = Tagged_event.create(event: @event, tag: @tag)
-    @tag = Tag.find_or_create_by(tag_params)
+    @tag = Tag.create(tag_params)
     render status: 200, json: @event.to_json
   end
 

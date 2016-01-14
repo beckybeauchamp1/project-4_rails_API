@@ -7,4 +7,5 @@ class Event < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :tagged_events, dependent: :destroy
   has_many :tags, through: :tagged_events
+
 end
