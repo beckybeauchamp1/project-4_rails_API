@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Campus Events Application</title>
+</head>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/underscore/underscore-min.js"></script>
+<script src="bower_components/handlebars/handlebars.min.js"></script>
+<script src="bower_components/backbone/backbone-min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/backbone/routers/college.js"></script>
+<script src="js/backbone/routers/user.js"></script>
+<script src="js/backbone/models/taggedEvent.js"></script>
+<script src="js/backbone/models/event.js"></script>
+<script src="js/backbone/models/user.js"></script>
+<script src="js/backbone/models/tag.js"></script>
+<script src="js/backbone/models/college.js"></script>
+<script src="js/backbone/collections/events.js"></script>
+<script src="js/backbone/collections/users.js"></script>
+<script src="js/backbone/collections/taggedEvents.js"></script>
+<script src="js/backbone/collections/tags.js"></script>
+<script src="js/backbone/collections/colleges.js"></script>
+<script src="js/backbone/views/event.js"></script>
+<script src="js/backbone/views/user.js"></script>
+<script src="js/backbone/views/taggedEventsView.js"></script>
+<script src="js/backbone/views/tag.js"></script>
+<script src="js/backbone/views/tagList.js"></script>
+<script src="js/backbone/views/college.js"></script>
+<script src="js/backbone/views/collegeList.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<body>
+  <main>
+    <nav class="top-fixed-nav">
+      <ul>
+        <li class="pull-left"><a href=""><i class="fa fa-university"></i></a></li>
+        <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
+        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+      </ul>
+    </nav>
+    <nav class="second-nav">
+      <ul>
+        <li><a href="#">NEWS</a></li>
+        <li class="login">LOG IN</li>
+        <li class="signup">SIGN UP</li>
+      </ul>
+    </nav>
+    <div class="main-heading-div">
+      <h1 class="main-h1">College</h1><h1>vents</h1>
+      <p>What's happening on your campus?</p>
+    </div>
+    <div class="container main-content-container">
+      <div id="Tab1" class="container">
+        <ul class="nav nav-pills pull-right heading-pills">
+          <li class="active">
+            <a id="events" href="#" data-toggle="tab">EVENTS</a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tab">CALENDAR</a>
+          </li>
+          <li>
+            <a href="#" data-toggle="tab">CATEGORIES</a>
+          </li>
+          <li>
+            <a id="about" href="#" data-toggle="tab">ABOUT</a>
+          </li>
+        </ul>
+        <div id="college-info" class="tab-content">
+        </div>
+        <div id="colleges" class="tab-pane">
+        </div>
+        <div id="new-event-modal">
+        </div>
+        <div class="all-events-div">
+        </div>
+        <div id="about-div">
+        </div>
+
+        <div class="state-search">
+          <div class="dropdown college-searches">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Find By State
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu state-list">
+              </ul>
+            </div>
+            <div class="dropdown college-searches">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Search By Name
+                <span class="caret"></span></button>
+                <form action="" class="dropdown-menu">
+                  <input type="search" name="collegesearch" class="collegeSearch">
+                  <input type="submit" class="submit btn btn-default" list="results">
+                </form>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <script id="collegeTemplate" type="text/x-handlebars-template">
+          <div class="row">
+            <div class="col-md-8 tags">
+              <h3 class="tag-heading">Categories:</h3>
+            </div>
+            <div class="col-md-4 college-name">
+              <h3>{{name}}</h3>
+              <h4>{{city}}, {{state}} {{zipcode}}</h4>
+              <button type="button" class="btn btn-default btn-lg toggle-event-form" data-toggle="modal" data-target="#new-event-model">
+                Create Event
+              </button>
+            </div>
+          </div>
+        </script>
+
+        <script id="eventTemplate" type="text/x-handlebars-template">
+          <div class="row">
+            <div class="col-md-8 tags">
+              <h2 class="tagss">{{title}}</h2>
+              <p class="tagss create-new-tag"><i class='fa fa-tags'></i></p>
+              <input id="{{id}}" class="tagss tag-form tag-form-text-input toggle-tag-form" placeholder="ENTER TAG NAME" name="title" type="text">
+              <input class="tagss tag-form-submit toggle-tag-form btn btn-default" type="submit">
+              <a id="{{id}}" href="#"><img class="events-img" src="{{image}}"/></a>
+              <p>{{content}}</p>
+              <button class="deleteEvent btn btn-danger btn-xs">Delete</button>
+              <button class="editEvent btn btn-default btn-xs">Edit</button>
+              <h2>Event Date:</h2>
+              <p>{{start_date}}</p>
+              <p>{{end_date}}</p>
+              {{starting_time}}, {{ending_time}}
+            </div>
+          </div>
+        </script>
+
+        <script id="thisEvent" type="text/x-handlebars-template">
+          <div class="row">
+            <div class="col-md-12 show-page">
+              <h2>{{title}}</h2>
+              <p class="back"><i class="fa fa-long-arrow-left"></i></p>
+              <p>
+                <a id="{{id}}" href="#"><img class="events-img" src="{{image}}"/></a>
+              </p>
+              <p>{{content}}</p>
+              <button class="deleteEvent btn btn-danger btn-xs">Delete</button>
+              <button class="editEvent btn btn-default btn-xs">Edit</button>
+              <h2>Event Date:</h2>
+              <p>{{start_date}}</p>
+              <p>{{end_date}}</p>
+              {{starting_time}}, {{ending_time}}
+              <p>
+                <p class="tagss create-new-tag">Add TAG <i class='fa fa-tags'></i></p>
+                <input id="{{id}}" class="tagss tag-form tag-form-text-input toggle-tag-form" placeholder="ENTER TAG NAME" name="title" type="text">
+                <input class="tagss tag-form-submit toggle-tag-form btn btn-default" type="submit">
+              </p>
+            </div>
+          </div>
+        </script>
+
+        <script id="newformTemplate" type="text/x-handlebars-template">
+          <form class="eventForm newForm">
+            <h2>Event Information:</h2>
+            <label>Title</label>
+            <input id="title" type="text" name="title" placeholder="title">
+            <label>Photo Url<d /label>
+              <input id="image" type="text" name="image" placeholder="image url">
+              <label>Content</label>
+              <textarea id="content" name="content" placeholder="content"></textarea>
+              <label>Start_Date</label>
+              <input id="start_date" name="start_date" placeholder="start_date" min="2015-01-01" max="2017-01-01" type="date">
+              <label>End_Date</label>
+              <input id="end_date" name="end_date" min="2015-01-01" max="2017-01-01" type="date">
+              <label>Event_Time</label>
+              <input id="starting_time" name="exit-time" type="time">
+              <label>Ending_Time</label>
+              <input id="ending_time" name="exit-time" type="time">
+              <button type="button" class="btn btn-default submitEventForm">Submit</button>
+              <button type="button" class="btn btn-default closeForm">Cancel</button>
+            </form>
+          </script>
+
+          <script id="formTemplate" type="text/x-handlebars-template">
+            <form class="eventForm editForm">
+              <h2>Edit Event:</h2>
+              <label>Title</label>
+              <input id="title2" type="text" name="title" value="{{ title }}">
+              <label>Photo Url</label>
+              <input id="image2" type="text" name="image" value="{{ image }}">
+              <label>Content</label>
+              <textarea id="content2" name="content">{{ content }}</textarea>
+              <label>Start_Date</label>
+              <input id="start_date2" name="start_date" value="{{ start_date }}" min="2015-01-01" max="2017-01-01" type="date">
+              <label>End_Date</label>
+              <input id="end_date2" name="end_date" value="{{ end_date }}" min="2015-01-01" max="2017-01-01" type="date">
+              <label>Event_Time</label>
+              <input id="starting_time2" value="{{ starting_time }}" name="exit-time" type="time">
+              <label>Ending_Time</label>
+              <input id="ending_time2" value="{{ ending_date }}" name="exit-time" type="time">
+              <button type="button" class="btn btn-default submitEventForm">Submit</button>
+              <button type="button" class="btn btn-default closeForm">Cancel</button>
+            </form>
+          </script>
+
+          <script id="userformTemplate" type="text/x-handlebars-template">
+            <form class="user-signup-form">
+              <h2 class="user-signup">Sign Up</h2>
+              <button type="button" id="close" class="btn btn-default">X</button>
+              <input type="text" id="first_name" name="first_name" value="" placeholder="First Name">
+              <input type="text" id="last_name" name="last_name" value="" placeholder="Last Name">
+              <input type="email" id="email" name="user[email]" value="" placeholder="Email">
+              <input type="password" id="password" name="user[password]" value="" placeholder="Password" autocomplete="off">
+              <input type="password" id="password_confirmation" name="user[password_confirmation]" value="" placeholder="Password_Confirmation" autocomplete="off">
+              <input type="submit" id="submitUserForm" class="btn btn-default" name="submit" value="Send">
+            </form>
+          </script>
+
+          <script id="aboutTemplate" type="text/x-handlebars-template">
+            <h2>Campus Events App</h2>
+            <p>For My Final Project at General Assembly, I decided to create a an application that would
+              allow users, students, or alumni to search for their college and find events. The idea would be that
+              users could sign up for an event and see other students who were going as well. This would be another social media
+              platform to share events. For this application, I am using a Rails Backend API and Backbone for my Font End Views. For more
+              information about this project, including Wireframes, ERD, and User Stories check out my github or trello board below:
+
+              <p>https://trello.com/b/HTFFduwm/project-4</p>
+
+              <p>https://github.com/beckybeauchamp1/project-4</p>
+            </p>
+            </script>
+
+            <script id="tagTemplate" type="text/x-handlebars-template">
+              <a class="each-tag" href="#">{{title}}</a>
+            </script>
+
+          </body>
+          </html>

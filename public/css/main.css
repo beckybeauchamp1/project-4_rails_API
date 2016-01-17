@@ -1,0 +1,384 @@
+* {
+  box-sizing: border-box;
+}
+body{
+  background-color: rgba(0,0,0,0.1);
+}
+main {
+  width: 100%;
+  max-height: 20000px;
+  min-height: 1700px;
+}
+h1{
+  font-family: 'Bangers';
+  font-size: 70px;
+  display: inline;
+  color: #ba4dec;
+  text-align: center;
+  margin: 0 auto;
+  text-shadow: 2px 2px 4px #000000;
+}
+h2{
+  font-family: "Graduate";
+  font-weight: bolder;
+}
+a{
+  color: black;
+  text-decoration: none;
+}
+a:hover{
+  color: #ba4dec;
+  text-decoration: none;
+}
+p{
+  line-height: 2em;
+}
+.main-h1{
+  font-size: 90px;
+  color: #291033;
+}
+.main-heading-div{
+  text-align: center;
+  width: 40%;
+  margin-top: 30px;
+}
+main p{
+  font-size: 20px;
+}
+.main-content-container{
+  max-height: 19000px;
+  min-height: 1400px;
+  width: 80%;
+  background-color: rgba(255,255,255,0.8);
+  margin-top: 10px;
+  overflow-y: visible;
+}
+#Tab1{
+  text-align: left;
+  width: 100%;
+}
+#Tab1 h3{
+  font-family: "Droid Serif";
+}
+#college-info{
+  width: 100%;
+  width: inherit;
+}
+#colleges{
+  width: 100%;
+}
+.heading-pills{
+  margin-top: -42px;
+  margin-right: -30px;
+}
+.heading-pills li{
+  padding-left: 14px;
+}
+.heading-pills a{
+  font-size: 17px;
+  background-color: rgba(0,0,0,0.1);
+}
+.heading-pills>li.active>a{
+  background-color: rgba(255,255,255,0.8);
+  color: black;
+}
+.heading-pills>li.active>a:hover{
+  background-color: rgba(255,255,255,0.8);
+  color: black;
+}
+.heading-pills>li.active>a:focus{
+  background-color: rgba(255,255,255,0.8);
+  color: black;
+}
+.heading-pills a:hover{
+  background-color: #4ddaff;
+}
+.college-searches {
+  display: inline;
+  margin: 10px;
+}
+.top-fixed-nav{
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-bottom: 2px;
+}
+.top-fixed-nav ul{
+  list-style-type: none;
+  text-align: right;
+  margin-left: 5px;
+}
+.top-fixed-nav ul li{
+  display: inline;
+  padding: 4px;
+  margin-left: 20px;
+  font-size: 36px;
+}
+.fa-university{
+  margin-right: -10px;
+  color: white;
+}
+.fa-university:hover{
+  color: rgba(0,0,0,0.8);
+}
+.top-fixed-nav ul li a{
+  color: #4ddaff;
+}
+.top-fixed-nav ul li a:hover{
+  color: black;
+}
+.second-nav{
+  width: 100%;
+  margin-top: 30px;
+  font-family: "Graduate";
+  font-size: 24px;
+  font-weight: 500;
+  color: black;
+}
+.second-nav ul{
+  list-style-type: none;
+  text-align: right;
+  margin-right: 20px;
+}
+.second-nav ul li{
+  display: inline;
+  padding: 4px;
+  margin-left: 40px;
+}
+.state-search{
+  padding-top: 20px;
+}
+.state-search button{
+  font-size: 20px;
+}
+.collegeSearch{
+  width: 400px;
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 22px;
+}
+/*list of colleges once filter or search*/
+.college-search-results{
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  margin-top: 15px;
+  font-family: "Bree Serif";
+}
+.total-colleges{
+  font-size: 30px;
+  text-align: center;
+}
+input{
+  display: inline;
+  font-size: 20px;
+  font-weight: bolder;
+}
+form{
+  width: 650px;
+}
+.submit{
+  width: 20%;
+  margin-left: 10px;
+}
+.caret{
+  margin-top: 10px;
+}
+
+#new-event-modal {
+  display: none; /* ensures it’s invisible until it’s called */
+  overflow: scroll;
+  position: absolute; /* makes the div go into a position that’s absolute to the browser viewing area */
+  left: 30%; /* positions the div half way horizontally */
+  top: 40%; /* positions the div half way vertically */
+  padding: 25px;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: 2px solid #4ddaff;
+  background-color: #eeeeee;
+  width: 43%;
+  height: 700px;
+  z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
+  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+  -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+  box-shadow:0 0 20px rgba(0,0,0,0.8);
+}
+.eventForm{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eventForm input{
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+  width: 50%;
+  height: 40px;
+  display: block;
+}
+
+.eventForm label{
+  font-size: 20px;
+  margin: auto;
+  text-align: center;
+  display: block;
+}
+
+.eventForm textarea {
+  margin: 0 auto;
+  font-size: 20px;
+  text-align: center;
+  width: 90%;
+  height: 100px;
+  display: block;
+}
+.submitEvent {
+  padding: 5px;
+  margin-left: 2px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.cancelEvent{
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 6px;
+  height: 38.5px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.states-link{
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "Graduate";
+  margin-top: 10px;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+.states-link:hover{
+  background-color: lemonchiffon;
+  cursor: pointer;
+}
+.tags{
+  text-align: left;
+}
+.college-name{
+  text-align: right;
+}
+img:hover{
+  box-shadow:0 0 20px rgba(0,0,0,0.8);
+}
+.events-img{
+  width: 80%;
+  margin-top: 40px;
+  height: 400px;
+}
+.toggle-event-form{
+  background-color: #ba4dec;
+  color: white;
+  margin-top: 20px;
+}
+.all-events-div{
+  overflow: scroll;
+}
+/*CSS FOR ALL OF THE TAGGING BELOW*/
+#tags{
+  width: 90%;
+}
+.tags-class-list{
+  list-style-type: none;
+  display: inline-table;
+  margin-top: 10px;
+  width: 15%;
+}
+.each-tag {
+  margin-left: 10px;
+  margin-top: 100px;
+  font-size: 20px;
+  padding: 2px;
+  /*border: 1px solid rgba(0,0,0,0.5);*/
+  background-color: rgba(0,0,0,0.1);
+}
+.each-tag:hover{
+  box-shadow:0 0 20px rgba(0,0,0,0.8);
+}
+.tagss{
+  display: inline;
+}
+.toggle-tag-form{
+  display: none;
+  margin-left: 40px;
+}
+.tag-form-submit{
+ height: 34px;
+ margin-top: 4px;
+ margin-left: 10px;
+}
+.tag-form-text-input{
+  margin-left: 10px;
+  height: 35px;
+  padding-bottom: 10px;
+  font-size: 17px;
+}
+.create-new-tag{
+  margin-left: 30px;
+  color: black;
+  /*margin-bottom: 10px;
+  margin-left: 200px;*/
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+.create-new-tag:hover{
+  color: #4ddaff;
+  height: inherit;
+}
+/*show page for events*/
+.show-page{
+  text-align: center;
+}
+.show-page img{
+  width: 65%;
+  margin-top: 40px;
+  height: 440px;
+  margin: 0 auto;
+}
+.show-page h2{
+  font-size: 40px;
+}
+.show-page p{
+  line-height: 3em;
+  font-size: 20px;
+}
+.back i{
+  font-size: 30px;
+}
+.back i:hover{
+  text-shadow: 2px 2px 4px #000000;
+}
+/*user signup form*/
+.user-signup-form{
+  text-align: center;
+  margin: 0 auto;
+}
+.user-signup-form input{
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  font-size: 20px;
+  width: 60%;
+  height: 40px;
+  margin-top: 20px;
+}
+.user-signup-form h2{
+  font-size: 38px;
+}
