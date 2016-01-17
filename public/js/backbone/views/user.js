@@ -14,6 +14,7 @@ App.Views.User = Backbone.View.extend({
     $(".signup").on("click", function(){
       event.preventDefault();
       $(".newForm").hide();
+      $(".user-signup-form").remove();
       $("#new-event-modal").append(self.userTemplate({}));
       $("#new-event-modal").show();
       self.closeUserForm();
@@ -24,7 +25,8 @@ App.Views.User = Backbone.View.extend({
     var self = this;
     $(".login").on("click", function(){
       event.preventDefault();
-      $(".newForm").hide();
+      $("#new-event-modal").hide();
+      $(".user-signup-form").remove();
       $("#new-event-modal").append(self.userTemplate({}));
       $(".user-signup").html("Log In");
       $("#new-event-modal").show();
@@ -36,7 +38,7 @@ App.Views.User = Backbone.View.extend({
     $("#close").on("click", function(){
       event.preventDefault();
       $("#new-event-modal").hide();
-      $(".user-signup-form").empty();
+      $(".user-signup-form").remove();
     });
   },
   addFormEventListener: function(){
@@ -53,11 +55,8 @@ App.Views.User = Backbone.View.extend({
       "user[password]": $("#password").val(),
       "user[password_confirmation]": $("#password_confirmation").val()
     };
-    console.log(userData);
-    console.log(this);
-    console.log(this.collection);
-    console.log(this.model);
     this.collection.create(userData);
+    $(".user-signup-form").remove();
     $("#new-event-modal").hide();
   }
 });
