@@ -23,7 +23,6 @@ App.Views.CollegeList = Backbone.View.extend({
     var states = [];
     for(var i = 0; i < state.length ; i++){
       if (states.indexOf(state[i]) === -1){
-        console.log("Not in the array");
         states.push(state[i]);
       }
     }

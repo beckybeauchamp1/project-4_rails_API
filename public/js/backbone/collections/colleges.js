@@ -15,7 +15,6 @@ App.Collections.Colleges = Backbone.Collection.extend({
   searchByState: function(state){
     var searchStates = this.filter(function(findModel){
       var modelFilter = new RegExp(state);
-      console.log(modelFilter.test(findModel.get("state")));
       return modelFilter.test(findModel.get("state"));
     });
     App.Views.collegeList.displaySearchResults(searchStates);

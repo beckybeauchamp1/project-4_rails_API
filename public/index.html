@@ -12,18 +12,21 @@
 <script src="js/backbone/routers/college.js"></script>
 <script src="js/backbone/routers/user.js"></script>
 <script src="js/backbone/models/taggedEvent.js"></script>
+<script src="js/backbone/models/showtaggedEvent.js"></script>
 <script src="js/backbone/models/event.js"></script>
 <script src="js/backbone/models/user.js"></script>
 <script src="js/backbone/models/tag.js"></script>
 <script src="js/backbone/models/college.js"></script>
 <script src="js/backbone/collections/events.js"></script>
 <script src="js/backbone/collections/users.js"></script>
+<script src="js/backbone/collections/showtaggedEvents.js"></script>
 <script src="js/backbone/collections/taggedEvents.js"></script>
 <script src="js/backbone/collections/tags.js"></script>
 <script src="js/backbone/collections/colleges.js"></script>
 <script src="js/backbone/views/event.js"></script>
 <script src="js/backbone/views/user.js"></script>
-<script src="js/backbone/views/taggedEventsView.js"></script>
+<script src="js/backbone/views/tagged.js"></script>
+<script src="js/backbone/views/showtaggedEvent.js"></script>
 <script src="js/backbone/views/tag.js"></script>
 <script src="js/backbone/views/tagList.js"></script>
 <script src="js/backbone/views/college.js"></script>
@@ -135,6 +138,9 @@
               <p>{{end_date}}</p>
               {{starting_time}}, {{ending_time}}
             </div>
+            <div class="col-md-4 college-name">
+              <ul class="associated-events"></ul>
+            </div>
           </div>
         </script>
 
@@ -158,6 +164,7 @@
                 <input id="{{id}}" class="tagss tag-form tag-form-text-input toggle-tag-form" placeholder="ENTER TAG NAME" name="title" type="text">
                 <input class="tagss tag-form-submit toggle-tag-form btn btn-default" type="submit">
               </p>
+              <ul class="associated-tags"></ul>
             </div>
           </div>
         </script>
@@ -210,11 +217,11 @@
             <form class="user-signup-form">
               <h2 class="user-signup">Sign Up</h2>
               <button type="button" id="close" class="btn btn-default">X</button>
-              <input type="text" id="first_name" name="first_name" value="" placeholder="First Name">
-              <input type="text" id="last_name" name="last_name" value="" placeholder="Last Name">
-              <input type="email" id="email" name="user[email]" value="" placeholder="Email">
-              <input type="password" id="password" name="user[password]" value="" placeholder="Password" autocomplete="off">
-              <input type="password" id="password_confirmation" name="user[password_confirmation]" value="" placeholder="Password_Confirmation" autocomplete="off">
+              <input type="text" id="first_name" name="first_name" placeholder="First Name">
+              <input type="text" id="last_name" name="last_name" placeholder="Last Name">
+              <input type="email" id="email" name="email" placeholder="Email">
+              <input type="password" id="password" name="password" placeholder="Password" autocomplete="off">
+              <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Password_Confirmation" autocomplete="off">
               <input type="submit" id="submitUserForm" class="btn btn-default" name="submit" value="Send">
             </form>
           </script>
@@ -231,11 +238,16 @@
 
               <p>https://github.com/beckybeauchamp1/project-4</p>
             </p>
+          </script>
+
+          <script id="tagTemplate" type="text/x-handlebars-template">
+            <a class="each-tag" href="#">{{title}}</a>
+          </script>
+
+          <script id="taggedTemplate" type="text/x-handlebars-template">
+            <li class="each-tag" href="#">{{title}}</a>
             </script>
 
-            <script id="tagTemplate" type="text/x-handlebars-template">
-              <a class="each-tag" href="#">{{title}}</a>
-            </script>
 
           </body>
           </html>

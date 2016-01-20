@@ -30,7 +30,6 @@ App.Views.College = Backbone.View.extend({
       $("#colleges").empty();
       $(".all-events-div").empty();
       $("#about-div").append(self.aboutTemplate({}));
-      console.log($("#about-div"));
       self.toggleCollegeShow();
     });
   },

@@ -1,10 +1,12 @@
 App.Views.Event = Backbone.View.extend({
   className: 'events-class',
   tagName: "div",
+  tagsView: [],
   events: {
     "click .deleteEvent": "delete",
     "click .editEvent": "edit",
     'click .create-new-tag': 'toggleTagForm',
+    'click .tag-form-submit': 'createTag',
     "click .events-img": 'showEventPage',
     "click .back": 'closeEventShowPage'
   },
@@ -17,6 +19,8 @@ App.Views.Event = Backbone.View.extend({
     this.render();
   },
   render: function() {
+    console.log("render");
+    console.log(this);
     this.$el.html(this.template(this.model.toJSON()));
   },
   // feels like this is a very BAD workaround, but was having issues regenerating all events after show page
@@ -30,9 +34,8 @@ App.Views.Event = Backbone.View.extend({
     // and college have loaded
   },
   renderTag: function(data){
-    console.log("rendering Tag!");
-    App.Views.taggedEventsView = new App.Views.TaggedEventsView({model: data});
-    $("#tags").append(App.Views.taggedEventsView.$el);
+    App.Views.taggedEvent= new App.Views.Tagged({model: data});
+    $("#tags").append(App.Views.taggedEvent.$el);
   },
   delete: function(){
     this.model.destroy();
@@ -78,7 +81,6 @@ App.Views.Event = Backbone.View.extend({
     $("#end_date2").val("");
     $("#starting_time2").val("");
     $("#ending_time2").val("");
-    console.log(eventData);
     this.model.save(eventData);
     $("#new-event-modal").hide();
     $(".eventForm").empty();
@@ -86,24 +88,63 @@ App.Views.Event = Backbone.View.extend({
   // feel like this should be in a different view
   toggleTagForm: function(){
     event.preventDefault();
-    $(".toggle-tag-form").toggle();
-    App.Views.tagList.createTag();
-
+    // targetting specific tag for this individual
+    this.$('.toggle-tag-form').toggle();
+  },
+  createTag: function(){
+    event.preventDefault();
+    var tagData = {
+      title: this.$(".tag-form-text-input").val(),
+      event_id: this.model.id
+    };
+    newTag = App.Collections.tagsCollection.create(tagData);
+    $(".tag-form-text-input").val("");
+    $(".toggle-tag-form").hide();
   },
   createTaggedEvent: function(id){
-    console.log(id);
-    console.log("creating tagged event");
     event.preventDefault();
     var data = {
       tag_id: id
     };
     this.model.taggedEvents.create(data);
   },
-  // "show page" for each individual event
+  // findId: function(){
+  //   var self = this;
+  //   this.model.taggedEvents.fetch().then(function(data){
+  //     for(var i = 0; i < data.length; i++){
+  //       self.tagsView.push(data[i]);
+  //     }
+  //   });
+  //   // for(var i = 0; i < this.collection.models.length; i++){
+  //   //   // console.log(this.collection.models[i].get("id"));
+  //   //   // console.log(this.collection.models[i].get("title"));
+  //   //   if(this.collection.models[i].get("id") == id){
+  //   //     var tag = this.collection.models[i];
+  //   //     return tag;
+  //   //   }
+  //   // }
+  // },
+    // this.model.showtaggedEvents = new App.Collections.ShowTaggedEvents();
+    // this.model.showtaggedEvents = new App.Collections.ShowTaggedEvents();
+    // this.model.showtaggedEvents.url = view.url;
+    // App.Collections.showtaggedEvents = this.model.showtaggedEvents;
+    // App.Views.showtaggedEvent = new App.Views.ShowTaggedEvent({model: view});
   showEventPage: function(){
     event.preventDefault();
     $(".events-class").empty();
     this.$el.html(this.thisEvent(this.model.toJSON()));
+    this.model.taggedEvents.fetch().then(function(data){
+      console.log(data);
+      for(var i = 0; i < data.length; i++){
+        var tag_id = data[i].tag_id;
+        var view = App.Views.tagList.findId(tag_id);
+        console.log("VIEWWWWWWWW" + view);
+        var tag= new App.Views.Tagged({model: view});
+        console.log(tag);
+        tag.renderOne();
+      }
+    });
+    // once view populated, rending tags for this event
   },
   closeEventShowPage: function(){
     event.preventDefault();

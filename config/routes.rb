@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  # :controllers => {sessions: 'sessions', registrations: 'registrations'}
+  devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
 
   resources :colleges do
     resources :events do
@@ -21,7 +20,9 @@ Rails.application.routes.draw do
       resources :tagged_events
     end
 
-    resources :tags
+    resources :tags do
+      resources :tagged_events
+    end
 
     resources :attendances
 

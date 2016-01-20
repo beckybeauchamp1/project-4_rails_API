@@ -4,7 +4,6 @@ App.Views.TagsList = Backbone.View.extend({
   views: [],
   tagsTitle: [],
   initialize: function(){
-    console.log("initalize tag list view");
     this.listenTo(this.collection, 'reset', this.renderAll);
     this.listenTo(this.collection, 'add', this.renderOne);
   },
@@ -12,28 +11,34 @@ App.Views.TagsList = Backbone.View.extend({
     this.$el.empty();
     this.collection.each(this.renderOne.bind(this));
   },
-  createTag: function(){
-    var self = this;
-    $(".tag-form-submit").on("click", function(){
-      event.preventDefault();
-      event.stopPropagation();
-      if($(".tag-form-text-input").val() !== ""){
-        var tagData = {
-          title: $(".tag-form-text-input").val(),
-        };
-        newTag = self.collection.create(tagData);
-        // console.log("newTag " + newTag);
-        // var newTagView = new App.Views.Tag({model: newTag});
-        // console.log(newTagView);
-        // var taggedEventID = newTagView.model.attributes.id;
-        // console.log(taggedEventID);
-        // var newTag = App.Collections.tagsCollection.create(tagData);
-        // this.createTaggedEvent(newTag);
-        // this.model.taggedEvents.create(newTag);
+  findId: function(id){
+    // console.log("find id" + id);
+    console.log(this.collection.models);
+    console.log("FIND ID: " + id);
+    for(var i = 0; i < this.collection.models.length; i++){
+      // console.log(this.collection.models[i].get("id"));
+      // console.log(this.collection.models[i].get("title"));
+      if(this.collection.models[i].get("id") == id){
+        var title = this.collection.models[i].get("title");
+        console.log(title);
+        var tag = this.collection.models[i];
+        console.log(tag);
+        return tag;
       }
-      $(".tag-form-text-input").val("");
-      $(".toggle-tag-form").hide();
-    });
+    }
+  },
+  // findId: function(id){
+  //   console.log(this.views);
+  //   for(var i = 0; i < this.views.length; i++){
+  //     if(this.views[i].model.get("id") == id){
+  //       var view = this.views[i];
+  //       return view;
+  //     }
+  //   }
+  // },
+  renderTag: function(tag){
+      console.log(tag);
+      App.Views.tagged = new App.Views.Tagged({model: tag});
   },
   renderOne: function(tag){
     App.Views.tag = new App.Views.Tag({model: tag});
